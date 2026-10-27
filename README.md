@@ -1,122 +1,105 @@
-<h1>ExpNo 2 : Implement Depth First Search Traversal of a Graph</h1> 
+<h1>ExpNo 2 : Implementation of Breadth First Search Traversal</h1>
+<h3>Name: </h3>
+<h3>Register Number: </h3>
 
-<H3>Aim:</H3>
-<p> To Implement Depth First Search Traversal of a Graph using Python 3.</p>
-<h3>Theory:</h3>
-<strong>Depth First Traversal </strong>(or DFS) for a graph is like Depth First Traversal of a tree. The only catch here is that, unlike trees, graphs may contain cycles (a node may be visited twice). Use a Boolean visited array to avoid processing a node more than once. A graph can have more than one DFS traversal. 
-Depth-first search is an algorithm for traversing or searching trees or graph data structures. The algorithm starts at the root node (selecting some arbitrary node as the root node in the case of a graph) and explores as far as possible along each branch before backtracking.
-Step 1: Initially, stack and visited arrays are empty.
+<h3>AIM:</h3>
+<br>
+<p>To Implement Breadth First Search Traversal of a Graph using Python 3.</p>
+<br>
 
- ![image](https://github.com/natsaravanan/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/87870499/640b3c6f-3ac1-49a2-a955-68da9a71f446)
+<h3>Theory</h3>
+<h3>Breadth First Search (BFS):</h3>
+<p>Breadth First Search is an uninformed search algorithm for traversing or searching tree or graph data structures. It begins at a selected root node and systematically explores all neighboring vertices at the present depth prior to moving on to vertices at the next depth level. To prevent re-processing nodes in cyclic graphs, a visited boolean table is maintained. BFS utilizes a First-In-First-Out (FIFO) queue (via collections.deque) to track adjacent frontier vertices, ensuring that the shortest path in terms of edge count is explored first.</p>
+<hr>
 
+<h3>DESIGN STEPS</h3>
+<h3>STEP 1: Identifying the input:</h3>
+<p>Number of nodes, number of edges, vertex pairs representing bidirectional edges, and the designated start node.</p>
+<h3>STEP 2: Identifying the output:</h3>
+<p>Constructed adjacency list of the graph and the sequential order of visited vertices during BFS traversal.</p>
+<h3>STEP 3: Representing the Graph:</h3>
+<p>Use a Python dictionary (<code>defaultdict(list)</code>) to build an adjacency list representing adjacent nodes for each vertex.</p>
+<h3>STEP 4: Implementing the BFS Algorithm:</h3>
+<p>Initialize a double-ended queue (<code>deque</code>), mark the start node as visited, enqueue it, and iteratively dequeue vertices while enqueuing all unvisited neighboring nodes.</p>
+<h3>STEP 5: Displaying traversal results:</h3>
+<p>Output the final traversal sequence as a connected path format (e.g., <code>A -> B -> C...</code>).</p>
 
-Queue and visited arrays are empty initially.
-Stack and visited arrays are empty initially.
-Step 2: Visit 0 and put its adjacent nodes which are not visited yet into the stack.
- ![image](https://github.com/natsaravanan/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/87870499/86dcf7d9-1f9d-49b0-a821-5976a6e77606)
+<h3>PROGRAM</h3>
+<hr>
 
- Visit node 0 and put its adjacent nodes (1, 2, 3) into the stack
- Visit node 0 and put its adjacent nodes (1, 2, 3) into the stack
-
-Step 3: Now, Node 1 at the top of the stack, so visit node 1 and pop it from the stack and put all of its adjacent nodes which are not visited in the stack.
- ![image](https://github.com/natsaravanan/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/87870499/e6017942-08b1-4742-87ad-c97eb97bf985)
-
-Visit node 1
- Visit node 1
-
-Step 4: Now, Node 2 at the top of the stack, so visit node 2 and pop it from the stack and put all of its adjacent nodes which are not visited (i.e, 3, 4) in the stack.
- ![image](https://github.com/natsaravanan/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/87870499/6e6d123c-60ae-4f9c-a27c-c4fc7e57d57c)
-
- Visit node 2 and put its unvisited adjacent nodes (3, 4) into the stack
- Visit node 2 and put its unvisited adjacent nodes (3, 4) into the stack
-
-Step 5: Now, Node 4 at the top of the stack, so visit node 4 and pop it from the stack and put all of its adjacent nodes which are not visited in the stack.
- ![image](https://github.com/natsaravanan/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/87870499/20b76a05-5668-4da5-8189-e10fb1bb7238)
-
- Visit node 4
- Visit node 4
-
-Step 6: Now, Node 3 at the top of the stack, so visit node 3 and pop it from the stack and put all of its adjacent nodes which are not visited in the stack.
- ![image](https://github.com/natsaravanan/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/87870499/3b88f04a-7846-4f75-89b4-22bbd5b48e52)
-
-Visit node 3
-Visit node 3
-
-Now, the Stack becomes empty, which means we have visited all the nodes, and our DFS traversal ends.
-
-<h3>Algorithm:</h3>
-<B><ol>
- <li>Construct a Graph with Nodes and Edges</li>
- <li>Depth First Search Uses Stack and Recursion</li>
- <li>Insert a START node to the STACK</li>
- <li>Find its Successors Or neighbors and Check whether the node is visited or not</li>
- <li>If Not Visited, add it to the STACK. Else Call The Function Again Until No more nodes needs to be visited.</li>
-</ol></B>
-
-### Program:
-```
-NAME : SANJEEV D
-REG NUMBER : 212223040185
-
+```python
 from collections import deque
 from collections import defaultdict
-def dfs(graph,start,visited,path):
+
+def bfs(graph, start, visited, path):
+    queue = deque()
+    visited[start] = True
+    queue.append(start)
     path.append(start)
-    visited[start]=True
-    for neighbour in graph[start]:
-        if visited[neighbour]==False:
-            dfs(graph,neighbour,visited,path)
-            visited[neighbour]=True
+    while queue:
+        node = queue.popleft()
+        for neighbour in graph[node]:
+            if not visited[neighbour]:
+                visited[neighbour] = True
+                queue.append(neighbour)
+                path.append(neighbour)
     return path
-graph=defaultdict(list)
-n,e=map(int,input().split())
+
+graph = defaultdict(list)
+v, e = map(int, input("Enter the number of nodes and edges: ").split())
+print("\nEnter the edges (Adjacent Nodes):")
 for i in range(e):
-    u,v=map(str,input().split())
-    graph[u].append(v)
-    graph[v].append(u)
-#print(graph)
-start='A'
-visited=defaultdict(bool)
-path=[]
-traversedpath=dfs(graph,start,visited,path)
-print(traversedpath)
+    u, w = input(f"Edge {i+1} (u v): ").split()
+    graph[u].append(w)
+    graph[w].append(u)      
+
+print("\nAdjacency List:")
+for node in graph:
+    print(node, "->", graph[node])
+
+start = input("\nEnter the start node for BFS: ")
+if start not in graph:
+    print("Invalid start node!")
+else:
+    visited = defaultdict(bool)
+    path = []
+    traversedpath = bfs(graph, start, visited, path)
+    print("\nBFS Traversal:", " -> ".join(traversedpath))
+```
+<hr>
+
+<h3>OUTPUT:</h3>
+
+```text
+Enter the number of nodes and edges: 8 9
+
+Enter the edges (Adjacent Nodes):
+Edge 1 (u v): A B
+Edge 2 (u v): A C
+Edge 3 (u v): B E
+Edge 4 (u v): C D
+Edge 5 (u v): B D
+Edge 6 (u v): C G
+Edge 7 (u v): D F
+Edge 8 (u v): G F
+Edge 9 (u v): F H
+
+Adjacency List:
+A -> ['B', 'C']
+B -> ['A', 'E', 'D']
+C -> ['A', 'D', 'G']
+E -> ['B']
+D -> ['C', 'B', 'F']
+G -> ['C', 'F']
+F -> ['D', 'G', 'H']
+H -> ['F']
+
+Enter the start node for BFS: A
+
+BFS Traversal: A -> B -> C -> E -> D -> G -> F -> H
 ```
 
+<img width="500" alt="Exp2 Output Screenshot Placeholder" src="https://github.com/user-attachments/assets/d5f69774-71b6-48e1-91ad-d09181b8c87a" />
 
-
-<hr>
-<h3>Sample Input</h3>
-<hr>
-8 9 <BR>
-A B <BR>
-A C <BR>
-B E <BR>
-C D <BR>
-B D <BR>
-C G <BR>
-D F <BR>
-G F <BR>
-F H <BR>
-
-<h3>Sample Output</h3>
-
-![362106596-9f675aba-16dc-4ccf-8edf-13444c0a4634](https://github.com/user-attachments/assets/e79fe343-cf25-474c-b9d1-1ce1644433c8)
-
-
-<h3>Sample Input</h3>
-
-5 5 <BR>
-0 1 <BR>
-0 2 <BR>
-0 3 <BR>
-2 3 <BR>
-2 4 <BR>
-
-<h3>Sample Output</h3>
-
-![362107712-007355d5-ff38-4cd7-8724-9d34046e3d6b](https://github.com/user-attachments/assets/065c2bfb-0242-411d-b0da-9851f2751555)
-
-
-<h3>Result:</h3>
-<p>Thus,a Graph was constructed and implementation of Depth First Search for the same graph was done successfully.</p>
-
+<h3>RESULT</h3>
+<p>Thus, the Breadth First Search (BFS) Traversal of a graph was successfully implemented and executed using Python 3.</p>
