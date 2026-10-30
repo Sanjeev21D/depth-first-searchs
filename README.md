@@ -1,6 +1,6 @@
 <h1>ExpNo 2 : Implementation of Breadth First Search Traversal</h1>
-<h3>Name: </h3>
-<h3>Register Number: </h3>
+<h3>Name: Sanjeev D</h3>
+<h3>Register Number: 212223040185</h3>
 
 <h3>AIM:</h3>
 <br>
@@ -99,7 +99,9 @@ Enter the start node for BFS: A
 BFS Traversal: A -> B -> C -> E -> D -> G -> F -> H
 ```
 
-<img width="500" alt="Exp2 Output Screenshot Placeholder" src="https://github.com/user-attachments/assets/d5f69774-71b6-48e1-91ad-d09181b8c87a" />
+<img width="873" height="363" alt="image" src="https://github.com/user-attachments/assets/03d320c1-fb5b-4d2f-aac3-4a8861b1a693" />
+<img width="873" height="535" alt="image" src="https://github.com/user-attachments/assets/b3691f6c-e987-4071-a8dc-fd2924b5eff3" />
+
 
 <h3>RESULT</h3>
 <p>Thus, the Breadth First Search (BFS) Traversal of a graph was successfully implemented and executed using Python 3.</p>
